@@ -4,6 +4,18 @@ Agent skill for building against [Zeep Orbit](https://github.com/zeeplabs/zeep-o
 
 The skill content lives once, at [`skills/orbit-usage/SKILL.md`](skills/orbit-usage/SKILL.md) (+ `references/`), following the `SKILL.md` + frontmatter + optional `references/` shape shared by Claude Code, OpenCode, Codex CLI, and Google Antigravity. Adding future skills to this repo just means adding another `skills/<name>/SKILL.md` — every install method below picks up new skills automatically without changing anything but the flag you pass.
 
+## Index
+
+- [Quick install — any agent, via `npx skills`](#quick-install--any-agent-via-npx-skills)
+- [Manual install, per agent](#manual-install-per-agent)
+  - [Claude Code](#claude-code)
+  - [OpenCode](#opencode)
+  - [Codex CLI](#codex-cli)
+  - [Google Antigravity](#google-antigravity)
+- [What's covered](#whats-covered)
+- [What's NOT covered](#whats-not-covered)
+- [Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security Policy](SECURITY.md) · [License](LICENSE)
+
 ## Quick install — any agent, via `npx skills`
 
 [`npx skills`](https://github.com/vercel-labs/skills) (Vercel Labs) auto-detects which coding agents you have installed (73+ supported, including Claude Code, OpenCode, Codex, Cursor) and wires the skill in for each with no manual config:
