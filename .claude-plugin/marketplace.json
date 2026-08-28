@@ -1,0 +1,17 @@
+{
+  "name": "zeep-orbit-skills",
+  "owner": {
+    "name": "ZeepLabs"
+  },
+  "version": "1.0.0",
+  "description": "Agent skills for building against Zeep Orbit (BaaS platform) — REST API, MCP tools, and client SDKs.",
+  "plugins": [
+    {
+      "name": "orbit-client",
+      "source": "./plugins/orbit-client",
+      "version": "1.0.0",
+      "description": "Teaches an agent how to consume a Zeep Orbit app: REST API, MCP tools, and the 6 official client SDKs (TS, Python, Go, Rust, Java, PHP).",
+      "keywords": ["orbit", "zeep-orbit", "baas", "mcp", "backend"]
+    }
+  ]
+}
