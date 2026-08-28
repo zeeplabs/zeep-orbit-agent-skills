@@ -2,48 +2,70 @@
 
 Agent skill for building against [Zeep Orbit](https://github.com/zeeplabs/zeep-orbit) — REST API, MCP tools, and the 6 official client SDKs. This is for **consumers** of an Orbit app (frontend/backend integrators, or agents with MCP access to an Orbit instance) — not for working on Orbit's own internal codebase.
 
-The skill content lives once, at [`plugins/orbit-client/skills/orbit-usage/SKILL.md`](plugins/orbit-client/skills/orbit-usage/SKILL.md) (+ `references/`), following the `SKILL.md` + frontmatter + optional `scripts/`/`references/` shape that Claude Code, OpenCode, Codex CLI, and Google Antigravity all read natively. Installation differs per agent since none of them share a common installer yet — pick your agent below.
+The skill content lives once, at [`skills/orbit-usage/SKILL.md`](skills/orbit-usage/SKILL.md) (+ `references/`), following the `SKILL.md` + frontmatter + optional `references/` shape shared by Claude Code, OpenCode, Codex CLI, and Google Antigravity. Adding future skills to this repo just means adding another `skills/<name>/SKILL.md` — every install method below picks up new skills automatically without changing anything but the flag you pass.
 
-## Claude Code
+## Quick install — any agent, via `npx skills`
+
+[`npx skills`](https://github.com/vercel-labs/skills) (Vercel Labs) auto-detects which coding agents you have installed (73+ supported, including Claude Code, OpenCode, Codex, Cursor) and wires the skill in for each with no manual config:
+
+```bash
+npx skills add zeeplabs/zeep-orbit-agent-skills
+```
+
+Prompts you to pick agents/skills if it can't auto-detect. To skip prompts and install everything for every detected agent:
+
+```bash
+npx skills add zeeplabs/zeep-orbit-agent-skills --all
+```
+
+Or target one skill / one agent explicitly (useful once this repo has more than one skill):
+
+```bash
+npx skills add zeeplabs/zeep-orbit-agent-skills --skill orbit-usage -a claude-code opencode
+```
+
+This is the recommended path — it's the only one that works the same way across Claude Code, OpenCode, Codex, and everything else `npx skills` supports, and it stays correct as skills are added/renamed in this repo.
+
+## Manual install, per agent
+
+Use these only if you can't run `npx`/Node in your environment.
+
+### Claude Code
 
 ```
 /plugin marketplace add zeeplabs/zeep-orbit-agent-skills
 /plugin install orbit-client
 ```
 
-## OpenCode
+### OpenCode
 
-Add to your project's `opencode.json` (or `~/.config/opencode/opencode.json` for a global install):
+Clone this repo locally, then add to your project's `opencode.json` (or `~/.config/opencode/opencode.json` for a global install):
 
 ```json
 {
   "instructions": [
-    "path/to/zeep-orbit-agent-skills/plugins/orbit-client/skills/orbit-usage/SKILL.md"
+    "path/to/zeep-orbit-agent-skills/skills/orbit-usage/SKILL.md"
   ]
 }
 ```
 
-Clone this repo (or add it as a submodule) somewhere local first, then point the path above at your clone.
+> [Incerto] `instructions` aceita paths/globs — confirmado pela documentação do OpenCode — mas não validei essa chave exata contra um `opencode.json` real. Prefira `npx skills add` acima, que já é validado pelos mantenedores da ferramenta pra OpenCode.
 
-> [Incerto] `instructions` aceita paths/globs — confirmado pela documentação do OpenCode — mas não validei a chave exata acima contra um `opencode.json` real. Confira `opencode docs rules` no seu ambiente antes de assumir a sintaxe.
+### Codex CLI
 
-## Codex CLI
+Clone this repo locally (Codex does not fetch remote skills), then register `skills/orbit-usage/SKILL.md` in `~/.codex/config.toml` per your installed Codex version's skills docs.
 
-Codex reads skills registered in `~/.codex/config.toml`, pointing at a local `SKILL.md` path with an enabled flag. Clone this repo locally first (Codex does not fetch remote skills), then register it — check `codex --help` / the Codex skills docs in your installed version for the exact TOML key names, since this repo's authors have not validated the literal syntax end-to-end.
+> [Incerto] Não validei a chave TOML exata. Prefira `npx skills add` acima, que já suporta Codex nativamente.
 
-> [Incerto] Não testei o registro real em `config.toml` — a documentação da OpenAI descreve o mecanismo (path pro `SKILL.md` + flag de habilitação) mas não achei um exemplo literal de chave TOML pra copiar com confiança.
-
-## Google Antigravity
-
-Copy (or symlink) the skill folder into your project's `.agents/skills/` directory:
+### Google Antigravity
 
 ```bash
 git clone https://github.com/zeeplabs/zeep-orbit-agent-skills /tmp/zeep-orbit-agent-skills
 mkdir -p .agents/skills
-cp -r /tmp/zeep-orbit-agent-skills/plugins/orbit-client/skills/orbit-usage .agents/skills/orbit-usage
+cp -r /tmp/zeep-orbit-agent-skills/skills/orbit-usage .agents/skills/orbit-usage
 ```
 
-Or globally under `~/.gemini/config/agents/` to make it available across all your projects.
+Or globally under `~/.gemini/config/agents/`.
 
 ## What's covered
 
